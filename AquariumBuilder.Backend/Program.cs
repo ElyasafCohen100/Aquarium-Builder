@@ -13,7 +13,7 @@ namespace AquariumBuilder.Backend
         {
             var builder = WebApplication.CreateBuilder(args);
 
-
+            
             builder.Services.AddSwaggerGen();
 
             // ===== to enable enum as string in the json responses ===== //

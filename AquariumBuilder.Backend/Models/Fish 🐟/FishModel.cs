@@ -9,7 +9,9 @@ namespace AquariumBuilder.Backend.Models.Fish
         public string Species { get; set; } = string.Empty;
 
         public bool isAlive { get; set; }
-        public int AgeInDays { get; set; } 
+        public int AgeInDays { get; set; }
+        public int MinDecorationsRequired { get; set; }
+
         public FishHealthStatusEnum HealthStatus { get; set; }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using AquariumBuilder.Backend.Enums;
+using AquariumBuilder.Backend.Models.Fish;
 using AquariumBuilder.Backend.Dtos.Aquarium;
 using AquariumBuilder.Backend.Models.Aquarium;
 using AquariumBuilder.Backend.Services.Interfaces;
+using AquariumBuilder.Backend.Services.Interfaces.Aquarium;
 
 
 namespace AquariumBuilder.Backend.Services.Aquarium
@@ -13,16 +15,37 @@ namespace AquariumBuilder.Backend.Services.Aquarium
         {
             return new AquariumModel()
             {
-                FishCount = 10,
                 WaterTemperature = 26.0,
                 isFilterWorking = true,
+                DecorationsCount = 3,
+
+                FishesList = new List<FishModel>
+                {
+                    new FishModel {Name = "Nemo", MinDecorationsRequired = 2},
+                    new FishModel {Name = "Duggy", MinDecorationsRequired = 4}
+                }
             };
         }
+
+
+        // === Dependency Injection === //
+        private readonly IAquariumValidationService _aquariumValidationService;
+
+        // ========== constructor ========== //
+
+        public AquariumService(IAquariumValidationService aquariumValidationService)
+        {
+            this._aquariumValidationService = aquariumValidationService;
+        }
+
 
         public AquariumStatusDto GetStatus()
         {
             AquariumModel aquarium = GetAquariumModel();
 
+            // ==== fishes List & Decorations Count ==== //
+            int decorationCount = aquarium.DecorationsCount;
+           
             string statusMessage = string.Empty;
             List<string> warnings = new List<string>();
             List<string> recommendations = new List<string>();
@@ -45,7 +68,19 @@ namespace AquariumBuilder.Backend.Services.Aquarium
                 recommendations.Add("Repair or replace the aquarium filter to ensure proper water circulation and cleanliness.💦🛠️ ");
             }
 
-            bool isAquariumReady = warnings.Count == 0; // Assignment and condition in the same line..
+            // ==== check the count of Decoration for the fish ==== //
+            foreach (var fish in aquarium.FishesList)
+            {
+                bool isDecorationCountIsOk = this._aquariumValidationService.IsDecorationsValidForFish(fish, aquarium.DecorationsCount);
+
+                if (!isDecorationCountIsOk)
+                {
+                    warnings.Add($"⛔Aquarium is not healthy⛔ - Not enough decorations for fish {fish.Name}.🐟");
+                    recommendations.Add($"Add more decorations to meet the needs of fish {fish.Name}.➕");
+                }
+            }
+
+            bool isAquariumReady = warnings.Count == 0;
 
             if (warnings.Count == 0)
             {
@@ -70,6 +105,7 @@ namespace AquariumBuilder.Backend.Services.Aquarium
                 FishCount = aquarium.FishCount,
                 Recommendations = recommendations,
                 WaterTemperature = aquarium.WaterTemperature,
+                DecorationsCount = aquarium.DecorationsCount
             };
         }
     }

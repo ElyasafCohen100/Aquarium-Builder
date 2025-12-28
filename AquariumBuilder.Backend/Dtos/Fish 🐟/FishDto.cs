@@ -10,6 +10,7 @@ namespace AquariumBuilder.Backend.Dtos.Fish
 
         public bool isAlive { get; set; }
         public int AgeInDays { get; set; }
+
         public FishHealthStatusEnum HealthStatus { get; set; }
     }
 }
