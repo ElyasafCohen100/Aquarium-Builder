@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using AquariumBuilder.Backend.Services.Fish;
 using AquariumBuilder.Backend.Services.Aquarium;
 using AquariumBuilder.Backend.Services.Interfaces;
+using AquariumBuilder.Backend.Services.Decoration;
 
 namespace AquariumBuilder.Backend
 {
@@ -31,6 +32,8 @@ namespace AquariumBuilder.Backend
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddScoped<IFishService, FishService>();
             builder.Services.AddScoped<IAquariumService, AquariumService>();
+            builder.Services.AddScoped<IDecorationService, DecorationService>();
+
 
             var app = builder.Build();
 
