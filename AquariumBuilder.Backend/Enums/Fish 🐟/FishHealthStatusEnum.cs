@@ -2,8 +2,8 @@
 {
     public enum FishHealthStatusEnum
     {
-        Healthy,
-        Sick,
-        Dead
+        Healthy = 0,
+        Sick = 1,
+        Dead = 2
     }
 }

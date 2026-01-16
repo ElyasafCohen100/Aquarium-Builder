@@ -2,8 +2,8 @@
 {
     public enum DecorationTypeEnum
     {
-        Plant,    // live
-        Rock,     // ntural
-        Ornament  // synthetic decorative items
+        Plant = 0,    // live
+        Rock = 1,     // ntural
+        Ornament = 2  // synthetic decorative items
     }
 }

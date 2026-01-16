@@ -5,8 +5,6 @@ VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquariumBuilder.Backend", "AquariumBuilder.Backend.csproj", "{EF590C5D-67BB-4403-8788-7A185A5BCD2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquariumBuilder.Backend.Tests", "..\AquariumBuilder.Backend.Tests\AquariumBuilder.Backend.Tests.csproj", "{83BB7C2C-F9B6-4F4F-BA22-5AB2E1D02FF5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{EF590C5D-67BB-4403-8788-7A185A5BCD2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF590C5D-67BB-4403-8788-7A185A5BCD2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF590C5D-67BB-4403-8788-7A185A5BCD2B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83BB7C2C-F9B6-4F4F-BA22-5AB2E1D02FF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83BB7C2C-F9B6-4F4F-BA22-5AB2E1D02FF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83BB7C2C-F9B6-4F4F-BA22-5AB2E1D02FF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83BB7C2C-F9B6-4F4F-BA22-5AB2E1D02FF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,6 +4,7 @@ using AquariumBuilder.Backend.Services.Fish;
 using AquariumBuilder.Backend.Services.Aquarium;
 using AquariumBuilder.Backend.Services.Interfaces;
 using AquariumBuilder.Backend.Services.Decoration;
+using AquariumBuilder.Backend.Services.Interfaces.Aquarium;
 
 namespace AquariumBuilder.Backend
 {
@@ -33,6 +34,7 @@ namespace AquariumBuilder.Backend
             builder.Services.AddScoped<IFishService, FishService>();
             builder.Services.AddScoped<IAquariumService, AquariumService>();
             builder.Services.AddScoped<IDecorationService, DecorationService>();
+            builder.Services.AddScoped<IAquariumValidationService, AquariumValidationService>();
 
 
             var app = builder.Build();

@@ -1,4 +1,5 @@
 ﻿using AquariumBuilder.Backend.Enums;
+using AquariumBuilder.Backend.Enums.Aquarium;
 
 namespace AquariumBuilder.Backend.Dtos.Fish
 {
@@ -6,6 +7,12 @@ namespace AquariumBuilder.Backend.Dtos.Fish
     {
         public string Name { get; set; } = string.Empty;
         public string Species { get; set; } = string.Empty;
-        public int AgeInDays { get; set; }
+
+        public int MinDecorationsRequired { get; set; }
+
+        public bool IsSchoolingFish { get; set; }
+        public int MinSchoolSize { get; set; }
+
+        public AquariumWaterTypeEnum RequiredWaterType { get; set; }
     }
 }

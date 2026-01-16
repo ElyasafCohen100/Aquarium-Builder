@@ -26,7 +26,6 @@ namespace AquariumBuilder.Backend.Services.Fish
             {
                 Name = createFishDto.Name,
                 Species = createFishDto.Species,
-                AgeInDays = createFishDto.AgeInDays,
             };
 
             _fishList.Add(newFish);
@@ -41,8 +40,7 @@ namespace AquariumBuilder.Backend.Services.Fish
                 return;
             }
 
-            fishToUpdate.Name = updateFishDto.Name;
-            fishToUpdate.isAlive = updateFishDto.isAlive;
+            fishToUpdate.IsAlive = updateFishDto.IsAlive;
             fishToUpdate.AgeInDays = updateFishDto.AgeInDays;
             fishToUpdate.HealthStatus = updateFishDto.HealthStatus;
         }

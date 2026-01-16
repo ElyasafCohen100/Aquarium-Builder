@@ -28,10 +28,10 @@ namespace AquariumBuilder.Backend.Controllers.Aquarium
         {
             AquariumStatusDto status = _aquariumService.GetStatus();
 
-            if (!status.IsReady)
-            {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable, status);
-            }
+            //if (!status.IsReady)
+            //{
+            //    return StatusCode(StatusCodes.Status503ServiceUnavailable, status);
+            //}
             return Ok(status);
         }
 
@@ -57,7 +57,6 @@ namespace AquariumBuilder.Backend.Controllers.Aquarium
                 Warnings = status.Warnings
             });
         }
-
 
         [HttpGet("recommendations")] // Informational (מידע endpoint) 
         public ActionResult<List<AquariumRecommendationsDto>> GetRecommendations()
