@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using AquariumBuilder.Backend.Dtos.Fish;
 using AquariumBuilder.Backend.Services.Interfaces;
-using System.Security.Cryptography.X509Certificates;
+
 
 namespace AquariumBuilder.Backend.Controllers.Fish
 {
@@ -29,9 +28,9 @@ namespace AquariumBuilder.Backend.Controllers.Fish
         }
 
         [HttpGet("{id}")] // to get a fish by id
-        public ActionResult<FishDto>GetFishById(int id)
+        public ActionResult<FishDto>GetFishById(Guid id)
         {
-            FishDto fishById = this._fishService.GetFishById(id);
+            FishDto? fishById = this._fishService.GetFishById(id);
 
             if(fishById== null)
             {
@@ -48,7 +47,7 @@ namespace AquariumBuilder.Backend.Controllers.Fish
         }
 
         [HttpPut("{id}")] // to update fish info
-        public IActionResult UpdateFish(int id, [FromBody] UpdateFishDto updateFishDto)
+        public IActionResult UpdateFish(Guid id, [FromBody] UpdateFishDto updateFishDto)
         {
             this._fishService.UpdateFish(id, updateFishDto);
             //return NoContent();
@@ -56,7 +55,7 @@ namespace AquariumBuilder.Backend.Controllers.Fish
         }
 
         [HttpDelete("{id}")] // to delete the fish
-        public IActionResult DeleteFish(int id)
+        public IActionResult DeleteFish(Guid id)
         {
             bool fishToDelete = this._fishService.DeleteFishById(id);
 

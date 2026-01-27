@@ -1,4 +1,5 @@
 ﻿using AquariumBuilder.Backend.Enums;
+using AquariumBuilder.Backend.Enums.Fish;
 using AquariumBuilder.Backend.Models.Fish;
 using AquariumBuilder.Backend.Dtos.Aquarium;
 using AquariumBuilder.Backend.Enums.Aquarium;
@@ -12,40 +13,59 @@ namespace AquariumBuilder.Backend.Services.Aquarium
     public class AquariumService : IAquariumService
     {
         // In a real application, this method would retrieve data from a database or external source.//
+        // Here, we provide a sample aquarium model for demonstration purposes - the Mock.           //
         private AquariumModel GetAquariumModel()
         {
             return new AquariumModel()
             {
+
+                // ==== Sample Aquarium Data ==== //
                 WaterTemperature = 26.0,
                 IsFilterWorking = true,
                 DecorationsCount = 3,
                 HasBiologicalMedia = true,
                 WaterType = AquariumWaterTypeEnum.FreshWater,
 
+                // ==== Sample Fishes List ==== //
                 FishesList = new List<FishModel>
                 {
                     new FishModel
                     {
+                        Id = Guid.NewGuid(),
                         Name = "Nemo - Tetra 🐟 ",
                         IsSchoolingFish = true,
                         MinSchoolSize = 4,
                         MinDecorationsRequired = 1,
-                        RequiredWaterType = AquariumWaterTypeEnum.FreshWater
+                        RequiredWaterType = AquariumWaterTypeEnum.FreshWater,
+                        ReproductionType = FishReproductionTypeEnum.EggLayer,
                     },
                     new FishModel
                     {
+                        Id = Guid.NewGuid(),
                         Name = "Gil - Tetra 🐟 ",
                         IsSchoolingFish = true,
                         MinSchoolSize = 4,
+                        MinDecorationsRequired = 1,
                         RequiredWaterType = AquariumWaterTypeEnum.FreshWater,
-                        MinDecorationsRequired = 1
+                        ReproductionType = FishReproductionTypeEnum.EggLayer,
                     },
                     new FishModel
                     {
-                        Name = "Duggy - Guppy 🐠 ",
+                        Id = Guid.NewGuid(),
+                        Name = "Duggy - Guppy 🐠",
                         IsSchoolingFish = false,
                         MinDecorationsRequired = 1,
+                        RequiredWaterType = AquariumWaterTypeEnum.FreshWater,
+                        ReproductionType = FishReproductionTypeEnum.LiveBearer,
+                    },
+                    new FishModel
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Dory - Blue Tang 🐠🌊",
+                        IsSchoolingFish = false,
+                        MinDecorationsRequired = 2,
                         RequiredWaterType = AquariumWaterTypeEnum.SaltWater,
+                        ReproductionType = FishReproductionTypeEnum.EggLayer
                     }
                 }
             };

@@ -2,9 +2,12 @@
 using System.Text.Json.Serialization;
 using AquariumBuilder.Backend.Services.Fish;
 using AquariumBuilder.Backend.Services.Aquarium;
-using AquariumBuilder.Backend.Services.Interfaces;
 using AquariumBuilder.Backend.Services.Decoration;
+using AquariumBuilder.Backend.Services.Interfaces;
+using AquariumBuilder.Backend.Services.BreedingBox;
 using AquariumBuilder.Backend.Services.Interfaces.Aquarium;
+using AquariumBuilder.Backend.Services.Interfaces.BreedingBox;
+
 
 namespace AquariumBuilder.Backend
 {
@@ -14,7 +17,7 @@ namespace AquariumBuilder.Backend
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            
+            // ====== Add services to the container ====== //
             builder.Services.AddSwaggerGen();
 
             // ===== to enable enum as string in the json responses ===== //
@@ -31,10 +34,14 @@ namespace AquariumBuilder.Backend
 
             // === Dependency Injection === //
             builder.Services.AddEndpointsApiExplorer();
+            
             builder.Services.AddScoped<IFishService, FishService>();
             builder.Services.AddScoped<IAquariumService, AquariumService>();
             builder.Services.AddScoped<IDecorationService, DecorationService>();
+            builder.Services.AddScoped<IBreedingBoxService, BreedingBoxService>();
+
             builder.Services.AddScoped<IAquariumValidationService, AquariumValidationService>();
+            builder.Services.AddScoped<IBreedingBoxValidationService, BreedingBoxValidationService>();
 
 
             var app = builder.Build();

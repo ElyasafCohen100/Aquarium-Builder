@@ -15,7 +15,7 @@ namespace AquariumBuilder.Backend.Services.Fish
             return _fishList;
         }
 
-        public FishDto GetFishById(int id)
+        public FishDto? GetFishById(Guid id)
         {
             return _fishList.FirstOrDefault(f => f.Id == id);
         }
@@ -31,7 +31,7 @@ namespace AquariumBuilder.Backend.Services.Fish
             _fishList.Add(newFish);
         }
 
-        public void UpdateFish(int id, UpdateFishDto updateFishDto)
+        public void UpdateFish(Guid id, UpdateFishDto updateFishDto)
         {
             FishDto? fishToUpdate = _fishList.FirstOrDefault(f => f.Id == id);  
                
@@ -45,7 +45,7 @@ namespace AquariumBuilder.Backend.Services.Fish
             fishToUpdate.HealthStatus = updateFishDto.HealthStatus;
         }
 
-        public bool DeleteFishById(int id)
+        public bool DeleteFishById(Guid id)
         {
             FishDto? fishToDelete = _fishList.FirstOrDefault(f => f.Id == id);
             

@@ -1,11 +1,12 @@
 ﻿using AquariumBuilder.Backend.Enums;
 using AquariumBuilder.Backend.Enums.Aquarium;
+using AquariumBuilder.Backend.Enums.Fish;
 
 namespace AquariumBuilder.Backend.Dtos.Fish
 {
     public class FishDto
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Name { get; set; } = string.Empty;
         public string Species { get; set; } = string.Empty;
@@ -20,5 +21,6 @@ namespace AquariumBuilder.Backend.Dtos.Fish
 
         public FishHealthStatusEnum HealthStatus { get; set; }
         public AquariumWaterTypeEnum RequiredWaterType { get; set; }
+        public FishReproductionTypeEnum ReproductionType { get; set; }
     }
 }

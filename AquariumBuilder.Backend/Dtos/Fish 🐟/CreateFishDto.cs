@@ -1,5 +1,6 @@
 ﻿using AquariumBuilder.Backend.Enums;
 using AquariumBuilder.Backend.Enums.Aquarium;
+using AquariumBuilder.Backend.Enums.Fish;
 
 namespace AquariumBuilder.Backend.Dtos.Fish
 {
@@ -14,5 +15,6 @@ namespace AquariumBuilder.Backend.Dtos.Fish
         public int MinSchoolSize { get; set; }
 
         public AquariumWaterTypeEnum RequiredWaterType { get; set; }
+        public FishReproductionTypeEnum ReproductionType { get; set; }
     }
 }
