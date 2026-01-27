@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Exceptions\BreedingBox 🫙\" />
     <Folder Include="Exceptions\Decoration 🪸\" />
     <Folder Include="Exceptions\Aquarium 🐚\" />
   </ItemGroup>

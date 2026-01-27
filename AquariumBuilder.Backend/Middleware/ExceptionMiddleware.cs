@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json;
 using AquariumBuilder.Backend.Dtos.Common;
+using AquariumBuilder.Backend.Exceptions.BreedingBox;
 using AquariumBuilder.Backend.Exceptions.Fish;
 
 
@@ -31,14 +32,24 @@ namespace AquariumBuilder.Backend.Middleware
                 // ====== map exception to status code ====== //
                 int statusCode = ex switch
                 {
-                    InvalidOperationException => StatusCodes.Status400BadRequest,
-                    ArgumentException => StatusCodes.Status400BadRequest,
 
-                    UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
+                    // ===== Fish ===== //
                     FishNotFoundException => StatusCodes.Status404NotFound,
 
-                    NotImplementedException => StatusCodes.Status501NotImplemented,
-                    _ => StatusCodes.Status500InternalServerError
+
+                    // ===== BreedingBox ===== //
+                    BreedingBoxIsNotFreeException => StatusCodes.Status409Conflict,
+                    BreedingBoxIsAlreadyFreeException => StatusCodes.Status409Conflict,
+                    NoFishInBreedingBoxException => StatusCodes.Status409Conflict,
+                    FishBreedingTypeMismatchException => StatusCodes.Status400BadRequest,
+
+
+                    // ===== Validation / Infrastructure ===== //
+                    ArgumentNullException => StatusCodes.Status400BadRequest,
+
+
+                    // ===== Fallback ===== //
+                    _ => StatusCodes.Status500InternalServerError,  
                 };
 
                 context.Response.StatusCode = statusCode;

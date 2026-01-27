@@ -3,6 +3,7 @@ using AquariumBuilder.Backend.Models.Fish;
 using AquariumBuilder.Backend.Dtos.BreedingBox;
 using AquariumBuilder.Backend.Enums.BreedingBox;
 using AquariumBuilder.Backend.Models.BreedingBox;
+using AquariumBuilder.Backend.Exceptions.BreedingBox;
 using AquariumBuilder.Backend.Services.Interfaces.BreedingBox;
 
 
@@ -16,10 +17,6 @@ namespace AquariumBuilder.Backend.Services.BreedingBox
             if(createBreedingBoxDto == null)
             {
                 throw new ArgumentNullException(nameof(createBreedingBoxDto));
-            }
-            if(!Enum.IsDefined(typeof(BreedingBoxSizeEnum), createBreedingBoxDto.Size))
-            {
-                throw new ArgumentException("Invalid breeding box size.");
             }
         }
 
@@ -38,12 +35,12 @@ namespace AquariumBuilder.Backend.Services.BreedingBox
 
             if (breedingBoxModel.Status != BreedingBoxStatusEnum.Free)
             {
-                throw new InvalidOperationException("Breeding box is not free.");
+                throw new BreedingBoxIsNotFreeException(breedingBoxModel.Id);
             }
 
             if(fishModel.ReproductionType != FishReproductionTypeEnum.LiveBearer)
             {
-              throw new InvalidOperationException("the Fish is not suitable for breeding box because the Fish is not a live beare.");
+                throw new FishBreedingTypeMismatchException(fishModel.Id);
             }
         }   
 
@@ -57,12 +54,12 @@ namespace AquariumBuilder.Backend.Services.BreedingBox
 
             if(breedingBoxModel.Status != BreedingBoxStatusEnum.Occupied)
             {
-              throw new InvalidOperationException("Breeding box is already free.");
+                throw new BreedingBoxIsAlreadyFreeException(breedingBoxModel.Id);
             }
 
             if (breedingBoxModel.FishId == null)
             {
-                throw new InvalidOperationException("There is no fish to remove from breeding box");
+                throw new NoFishInBreedingBoxException(breedingBoxModel.Id);
             }
         }
     }

@@ -1,6 +1,4 @@
-﻿using System;
-
-
+﻿
 namespace AquariumBuilder.Backend.Exceptions.Fish
 {
     public class FishNotFoundException : Exception

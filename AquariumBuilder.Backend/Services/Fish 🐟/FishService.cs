@@ -29,8 +29,10 @@ namespace AquariumBuilder.Backend.Services.Fish
         {
             FishDto newFish = new FishDto
             {
+                Id = Guid.NewGuid(),
                 Name = createFishDto.Name,
                 Species = createFishDto.Species,
+                ReproductionType = createFishDto.ReproductionType
             };
 
             _fishList.Add(newFish);
