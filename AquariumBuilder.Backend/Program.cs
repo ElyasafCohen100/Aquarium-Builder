@@ -1,5 +1,6 @@
 
 using System.Text.Json.Serialization;
+using AquariumBuilder.Backend.Middleware;
 using AquariumBuilder.Backend.Services.Fish;
 using AquariumBuilder.Backend.Services.Aquarium;
 using AquariumBuilder.Backend.Services.Decoration;
@@ -54,6 +55,8 @@ namespace AquariumBuilder.Backend
             }
 
             app.UseHttpsRedirection();
+            app.UseMiddleware<ExceptionMiddleware>();
+
             app.UseAuthorization();
             app.MapControllers();
           
