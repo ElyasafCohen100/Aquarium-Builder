@@ -20,50 +20,38 @@ namespace AquariumBuilder.Backend.Controllers.Fish
 
         // ================================= the Endpoints ================================= //
 
-        [HttpGet] // to get all fish
+        [HttpGet]
         public ActionResult<List<FishDto>> GetAllFish()
         {
             List<FishDto> fishList = this._fishService.GetAllFish();
             return Ok(fishList);
         }
 
-        [HttpGet("{id}")] // to get a fish by id
-        public ActionResult<FishDto>GetFishById(Guid id)
+        [HttpGet("{fishId}")] 
+        public ActionResult<FishDto>GetFishById(Guid fishId)
         {
-            FishDto? fishById = this._fishService.GetFishById(id);
-
-            if(fishById== null)
-            {
-                return NotFound();
-            }
+            FishDto fishById = this._fishService.GetFishById(fishId);
             return Ok(fishById);
         }
 
-        [HttpPost] // to buy a fish
+        [HttpPost] 
         public IActionResult CreateFish([FromBody] CreateFishDto createFishDto)
         {
             this._fishService.CreateFish(createFishDto);
             return Ok(new { message = "Fish created successfully 🐠" });
         }
 
-        [HttpPut("{id}")] // to update fish info
-        public IActionResult UpdateFish(Guid id, [FromBody] UpdateFishDto updateFishDto)
+        [HttpPut("{fishId}")]
+        public IActionResult UpdateFish(Guid fishId, [FromBody] UpdateFishDto updateFishDto)
         {
-            this._fishService.UpdateFish(id, updateFishDto);
-            //return NoContent();
+            this._fishService.UpdateFish(fishId, updateFishDto);
             return Ok(new { message = "Fish updated successfully 🐠" });
         }
 
-        [HttpDelete("{id}")] // to delete the fish
-        public IActionResult DeleteFish(Guid id)
+        [HttpDelete("{fishId}")]
+        public IActionResult DeleteFish(Guid fishId)
         {
-            bool fishToDelete = this._fishService.DeleteFishById(id);
-
-            if (!fishToDelete)
-            {
-                return NotFound();   
-            }
-            //return NoContent();
+             this._fishService.DeleteFishById(fishId);
             return Ok(new { message = "Fish deleted successfully 🐠" });
         }
     }

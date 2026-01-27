@@ -1,6 +1,5 @@
-﻿using System.Xml.Linq;
-using AquariumBuilder.Backend.Enums;
-using AquariumBuilder.Backend.Dtos.Fish;
+﻿using AquariumBuilder.Backend.Dtos.Fish;
+using AquariumBuilder.Backend.Exceptions.Fish;
 using AquariumBuilder.Backend.Services.Interfaces;
 
 
@@ -15,9 +14,15 @@ namespace AquariumBuilder.Backend.Services.Fish
             return _fishList;
         }
 
-        public FishDto? GetFishById(Guid id)
+        public FishDto GetFishById(Guid fishId)
         {
-            return _fishList.FirstOrDefault(f => f.Id == id);
+            FishDto? fish = _fishList.FirstOrDefault(f => f.Id == fishId);
+            
+            if (fish == null)
+            {
+                throw new FishNotFoundException(fishId);
+            }
+            return fish;
         }
 
         public void CreateFish(CreateFishDto createFishDto)
@@ -31,31 +36,19 @@ namespace AquariumBuilder.Backend.Services.Fish
             _fishList.Add(newFish);
         }
 
-        public void UpdateFish(Guid id, UpdateFishDto updateFishDto)
+        public void UpdateFish(Guid fishId, UpdateFishDto updateFishDto)
         {
-            FishDto? fishToUpdate = _fishList.FirstOrDefault(f => f.Id == id);  
-               
-            if(fishToUpdate == null)
-            {
-                return;
-            }
+            FishDto fishToUpdate = GetFishById(fishId);
 
             fishToUpdate.IsAlive = updateFishDto.IsAlive;
             fishToUpdate.AgeInDays = updateFishDto.AgeInDays;
             fishToUpdate.HealthStatus = updateFishDto.HealthStatus;
         }
 
-        public bool DeleteFishById(Guid id)
+        public void DeleteFishById(Guid fishId)
         {
-            FishDto? fishToDelete = _fishList.FirstOrDefault(f => f.Id == id);
-            
-            if(fishToDelete == null)
-            {
-                return false;
-            }
-
+            FishDto fishToDelete = GetFishById(fishId);
             _fishList.Remove(fishToDelete);
-            return true;
         }
     }
 }

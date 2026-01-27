@@ -10,4 +10,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Exceptions\BreedingBox 🫙\" />
+    <Folder Include="Exceptions\Decoration 🪸\" />
+    <Folder Include="Exceptions\Aquarium 🐚\" />
+  </ItemGroup>
+
 </Project>

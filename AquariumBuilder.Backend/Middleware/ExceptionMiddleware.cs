@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json;
 using AquariumBuilder.Backend.Dtos.Common;
+using AquariumBuilder.Backend.Exceptions.Fish;
 
 
 namespace AquariumBuilder.Backend.Middleware
@@ -33,8 +34,8 @@ namespace AquariumBuilder.Backend.Middleware
                     InvalidOperationException => StatusCodes.Status400BadRequest,
                     ArgumentException => StatusCodes.Status400BadRequest,
 
-                    KeyNotFoundException => StatusCodes.Status404NotFound,
                     UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
+                    FishNotFoundException => StatusCodes.Status404NotFound,
 
                     NotImplementedException => StatusCodes.Status501NotImplemented,
                     _ => StatusCodes.Status500InternalServerError
