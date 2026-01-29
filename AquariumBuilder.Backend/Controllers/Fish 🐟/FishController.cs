@@ -18,6 +18,7 @@ namespace AquariumBuilder.Backend.Controllers.Fish
             this._fishService = ifishService;
         }
 
+
         // ================================= the Endpoints ================================= //
 
         [HttpGet]
@@ -30,7 +31,7 @@ namespace AquariumBuilder.Backend.Controllers.Fish
         [HttpGet("{fishId}")] 
         public ActionResult<FishDto>GetFishById(Guid fishId)
         {
-            FishDto fishById = this._fishService.GetFishById(fishId);
+            FishDto? fishById = this._fishService.GetFishById(fishId);
             return Ok(fishById);
         }
 

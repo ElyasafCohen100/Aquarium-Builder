@@ -37,7 +37,8 @@ namespace AquariumBuilder.Backend
             builder.Services.AddEndpointsApiExplorer();
 
             // ===== Services ===== //
-            builder.Services.AddScoped<IFishService, FishService>();
+            //builder.Services.AddScoped<IFishService, FishService>();
+            builder.Services.AddSingleton<IFishService, FishService>();
             builder.Services.AddScoped<IAquariumService, AquariumService>();
             builder.Services.AddScoped<IDecorationService, DecorationService>();
             builder.Services.AddScoped<IBreedingBoxService, BreedingBoxService>();
@@ -60,7 +61,7 @@ namespace AquariumBuilder.Backend
 
             app.UseAuthorization();
             app.MapControllers();
-          
+
             app.Run();
         }
     }

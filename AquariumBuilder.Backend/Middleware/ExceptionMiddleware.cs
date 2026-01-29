@@ -40,9 +40,14 @@ namespace AquariumBuilder.Backend.Middleware
                     // ===== BreedingBox ===== //
                     BreedingBoxNotFoundException => StatusCodes.Status404NotFound,
                     NoFishInBreedingBoxException => StatusCodes.Status409Conflict,
+                  
                     BreedingBoxIsNotFreeException => StatusCodes.Status409Conflict,
                     BreedingBoxIsAlreadyFreeException => StatusCodes.Status409Conflict,
+                   
                     FishBreedingTypeMismatchException => StatusCodes.Status400BadRequest,
+                    CannotDeleteOccupiedBreedingBoxException => StatusCodes.Status409Conflict,
+                   
+                    FishAlreadyInBreedingBoxException => StatusCodes.Status409Conflict,
 
 
                     // ===== Validation / Infrastructure ===== //

@@ -15,7 +15,7 @@ public class BreedingBoxService : IBreedingBoxService
     private readonly IFishService _fishService;
     private readonly IBreedingBoxValidationService _breedingBoxValidationService;
 
-    private static readonly List<BreedingBoxModel> _breedingBoxes = new(); // for manage the "state"
+    private static readonly List<BreedingBoxModel> _breedingBoxes = new();
 
 
     // ======= Constructor ======= //
@@ -25,6 +25,34 @@ public class BreedingBoxService : IBreedingBoxService
         this._breedingBoxValidationService = breedingBoxValidationService;
     }
 
+
+    public List<BreedingBoxModel> GetAllBreedingBoxes()
+    {
+        return _breedingBoxes;
+    }
+
+    public List<BreedingBoxModel> GetAvailableBreedingBoxes()
+    {
+        return _breedingBoxes
+            .Where(b => b.Status == BreedingBoxStatusEnum.Free)
+            .ToList();
+    }
+
+    public List<BreedingBoxModel> GetOccupiedBreedingBoxes()
+    {
+        return _breedingBoxes
+            .Where(b => b.Status == BreedingBoxStatusEnum.Occupied)
+            .ToList();
+    }
+
+
+    public BreedingBoxModel GetBreedingBoxById(Guid breedingBoxId)
+    {
+        BreedingBoxModel breedingBox = _breedingBoxes.FirstOrDefault(b => b.Id == breedingBoxId)
+            ?? throw new BreedingBoxNotFoundException(breedingBoxId);
+
+        return breedingBox;
+    }
 
     public BreedingBoxModel CreateBreedingBox(CreateBreedingBoxDto createBreedingBoxDto)
     {
@@ -74,5 +102,19 @@ public class BreedingBoxService : IBreedingBoxService
         breedingBox.EndDate = DateTime.UtcNow;
 
         return breedingBox;
+    }
+
+
+    public void DeleteBreedingBoxById(Guid breedingBoxId)
+    {
+        BreedingBoxModel breedingBox = _breedingBoxes.FirstOrDefault(b => b.Id == breedingBoxId)
+            ?? throw new BreedingBoxNotFoundException(breedingBoxId);
+
+        if (breedingBox.Status != BreedingBoxStatusEnum.Free || breedingBox.FishId != null)
+        {
+            throw new CannotDeleteOccupiedBreedingBoxException(breedingBoxId);
+        }
+
+        _breedingBoxes.Remove(breedingBox);
     }
 }

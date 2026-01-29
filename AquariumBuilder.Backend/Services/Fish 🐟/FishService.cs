@@ -10,7 +10,7 @@ namespace AquariumBuilder.Backend.Services.Fish
     {
         public static readonly List<FishDto> _fishList = new List<FishDto>();
 
-
+        
         public List<FishDto> GetAllFish()
         {
             return _fishList;

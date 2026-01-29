@@ -33,6 +33,11 @@ namespace AquariumBuilder.Backend.Services.BreedingBox
                 throw new ArgumentNullException(nameof(fishModel));
             }
 
+            if (breedingBoxModel.FishId == fishModel.Id)
+            {
+                throw new FishAlreadyInBreedingBoxException(fishModel.Id);
+            }
+
             if (breedingBoxModel.Status != BreedingBoxStatusEnum.Free)
             {
                 throw new BreedingBoxIsNotFreeException(breedingBoxModel.Id);
