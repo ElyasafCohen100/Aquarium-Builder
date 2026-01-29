@@ -9,7 +9,7 @@ namespace AquariumBuilder.Backend.Middleware
 {
     public class ExceptionMiddleware
     {
-        private readonly RequestDelegate _next; // Like a "button" that takes you to the next middleware
+        private readonly RequestDelegate _next; // Like a "button" that takes you to the next Middleware
 
         // ====== constructors ====== //
         public ExceptionMiddleware(RequestDelegate next)
@@ -69,7 +69,6 @@ namespace AquariumBuilder.Backend.Middleware
 
                 string json = JsonSerializer.Serialize(errorRespinse);
                 await context.Response.WriteAsync(json);
-
             }
         }
     }
