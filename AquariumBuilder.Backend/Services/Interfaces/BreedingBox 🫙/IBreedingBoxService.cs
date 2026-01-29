@@ -7,7 +7,7 @@ namespace AquariumBuilder.Backend.Services.Interfaces.BreedingBox
     public interface IBreedingBoxService
     {
         public BreedingBoxModel CreateBreedingBox(CreateBreedingBoxDto createBreedingBoxDto);
-        public BreedingBoxModel AddFishToBreedingBox(BreedingBoxModel breedingBoxModel, FishModel fishModel);
-        public BreedingBoxModel RemoveFishFromBreedingBox(BreedingBoxModel breedingBoxModel);
+        public BreedingBoxModel AddFishToBreedingBox(Guid breedingBoxId, Guid fishId);
+        public BreedingBoxModel RemoveFishFromBreedingBox(Guid breedingBoxId);
     }
 }

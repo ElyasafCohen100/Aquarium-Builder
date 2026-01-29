@@ -1,4 +1,3 @@
-
 using System.Text.Json.Serialization;
 using AquariumBuilder.Backend.Middleware;
 using AquariumBuilder.Backend.Services.Fish;
@@ -33,17 +32,19 @@ namespace AquariumBuilder.Backend
 
             // ====== for the controllers to work with the servers ====== //
 
-            // === Dependency Injection === //
+
+            // ===== Dependency Injection ===== //
             builder.Services.AddEndpointsApiExplorer();
-            
+
+            // ===== Services ===== //
             builder.Services.AddScoped<IFishService, FishService>();
             builder.Services.AddScoped<IAquariumService, AquariumService>();
             builder.Services.AddScoped<IDecorationService, DecorationService>();
             builder.Services.AddScoped<IBreedingBoxService, BreedingBoxService>();
 
+            // ===== Validations ===== //
             builder.Services.AddScoped<IAquariumValidationService, AquariumValidationService>();
             builder.Services.AddScoped<IBreedingBoxValidationService, BreedingBoxValidationService>();
-
 
             var app = builder.Build();
 

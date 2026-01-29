@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using System.Text.Json;
 using AquariumBuilder.Backend.Dtos.Common;
-using AquariumBuilder.Backend.Exceptions.BreedingBox;
 using AquariumBuilder.Backend.Exceptions.Fish;
+using AquariumBuilder.Backend.Exceptions.BreedingBox;
 
 
 namespace AquariumBuilder.Backend.Middleware
@@ -38,9 +38,10 @@ namespace AquariumBuilder.Backend.Middleware
 
 
                     // ===== BreedingBox ===== //
+                    BreedingBoxNotFoundException => StatusCodes.Status404NotFound,
+                    NoFishInBreedingBoxException => StatusCodes.Status409Conflict,
                     BreedingBoxIsNotFreeException => StatusCodes.Status409Conflict,
                     BreedingBoxIsAlreadyFreeException => StatusCodes.Status409Conflict,
-                    NoFishInBreedingBoxException => StatusCodes.Status409Conflict,
                     FishBreedingTypeMismatchException => StatusCodes.Status400BadRequest,
 
 

@@ -20,7 +20,7 @@ namespace AquariumBuilder.Backend.Controllers.BreedingBox
         }
 
         // ================================= the Endpoints ================================= //
-
+      
         [HttpPost]
         public ActionResult<BreedingBoxModel> CreateBreedingBox([FromBody] CreateBreedingBoxDto createBreedingBoxDto)
         {
@@ -28,18 +28,18 @@ namespace AquariumBuilder.Backend.Controllers.BreedingBox
             return Ok(newBreedingBox);
         }
 
-        [HttpPost("add-fish")]
-        public ActionResult<BreedingBoxModel> AddFishToBreedingBox([FromBody] AddFishToBreedingBoxDto dto)
+        [HttpPost("{breedingBoxId}/add-fish")]
+        public ActionResult<BreedingBoxModel> AddFishToBreedingBox(Guid breedingBoxId, [FromBody] AddFishToBreedingBoxDto dto)
         {
-            BreedingBoxModel BreedingBoxAftrerAdding = this._breedingBoxService.AddFishToBreedingBox(dto.BreedingBox, dto.Fish);
-            return Ok(BreedingBoxAftrerAdding);
+            BreedingBoxModel breedingBox = this._breedingBoxService.AddFishToBreedingBox(breedingBoxId, dto.FishId);
+            return Ok(breedingBox);
         }
 
-        [HttpPost("remove-fish")]
-        public ActionResult<BreedingBoxModel> RemoveFishFromBreedingBox([FromBody] BreedingBoxModel breedingBoxModel)
+        [HttpPost("{breedingBoxId}/remove-fish")]
+        public ActionResult<BreedingBoxModel> RemoveFishFromBreedingBox(Guid breedingBoxId)
         {
-            BreedingBoxModel BreedingBoxAftrerRemoval = this._breedingBoxService.RemoveFishFromBreedingBox(breedingBoxModel);
-            return Ok(BreedingBoxAftrerRemoval);
+            BreedingBoxModel breedingBox = this._breedingBoxService.RemoveFishFromBreedingBox(breedingBoxId);
+            return Ok(breedingBox);
         }
     }
 }

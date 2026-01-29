@@ -1,4 +1,5 @@
 ﻿using AquariumBuilder.Backend.Dtos.Fish;
+using AquariumBuilder.Backend.Models.Fish;
 using AquariumBuilder.Backend.Exceptions.Fish;
 using AquariumBuilder.Backend.Services.Interfaces;
 
@@ -7,7 +8,8 @@ namespace AquariumBuilder.Backend.Services.Fish
 {
     public class FishService : IFishService
     {
-        private static readonly List<FishDto> _fishList = new List<FishDto>();
+        public static readonly List<FishDto> _fishList = new List<FishDto>();
+
 
         public List<FishDto> GetAllFish()
         {
@@ -16,13 +18,22 @@ namespace AquariumBuilder.Backend.Services.Fish
 
         public FishDto GetFishById(Guid fishId)
         {
-            FishDto? fish = _fishList.FirstOrDefault(f => f.Id == fishId);
-            
-            if (fish == null)
-            {
-                throw new FishNotFoundException(fishId);
-            }
+            FishDto? fish = _fishList.FirstOrDefault(f => f.Id == fishId)
+                 ?? throw new FishNotFoundException(fishId);
+
             return fish;
+        }
+
+        public FishModel GetFishModelById(Guid fishId)
+        {
+            FishDto? fishDto = _fishList.FirstOrDefault(f => f.Id == fishId)
+                ?? throw new FishNotFoundException(fishId);
+
+            return new FishModel
+            {
+                Id = fishDto.Id,
+                ReproductionType = fishDto.ReproductionType
+            };
         }
 
         public void CreateFish(CreateFishDto createFishDto)

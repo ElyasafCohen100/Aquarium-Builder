@@ -2,6 +2,8 @@
 using AquariumBuilder.Backend.Dtos.BreedingBox;
 using AquariumBuilder.Backend.Enums.BreedingBox;
 using AquariumBuilder.Backend.Models.BreedingBox;
+using AquariumBuilder.Backend.Services.Interfaces;
+using AquariumBuilder.Backend.Exceptions.BreedingBox;
 using AquariumBuilder.Backend.Services.Interfaces.BreedingBox;
 
 
@@ -10,21 +12,25 @@ namespace AquariumBuilder.Backend.Services.BreedingBox;
 public class BreedingBoxService : IBreedingBoxService
 {
     // ======= Dependency Injection ======= //
+    private readonly IFishService _fishService;
     private readonly IBreedingBoxValidationService _breedingBoxValidationService;
+
+    private static readonly List<BreedingBoxModel> _breedingBoxes = new(); // for manage the "state"
 
 
     // ======= Constructor ======= //
-    public BreedingBoxService(IBreedingBoxValidationService breedingBoxValidationService)
+    public BreedingBoxService(IFishService fishService, IBreedingBoxValidationService breedingBoxValidationService)
     {
+        this._fishService = fishService;
         this._breedingBoxValidationService = breedingBoxValidationService;
     }
 
-   
+
     public BreedingBoxModel CreateBreedingBox(CreateBreedingBoxDto createBreedingBoxDto)
     {
         this._breedingBoxValidationService.ValidateCreateBreedingBox(createBreedingBoxDto);
 
-        return new BreedingBoxModel
+        BreedingBoxModel breedingBox = new BreedingBoxModel
         {
             Id = Guid.NewGuid(),
             Size = createBreedingBoxDto.Size,
@@ -33,27 +39,40 @@ public class BreedingBoxService : IBreedingBoxService
             StartDate = null,
             EndDate = null
         };
+
+        _breedingBoxes.Add(breedingBox);
+
+        return breedingBox;
+
     }
 
-    public BreedingBoxModel AddFishToBreedingBox(BreedingBoxModel breedingBoxModel, FishModel fishModel)
+    public BreedingBoxModel AddFishToBreedingBox(Guid breedingBoxId, Guid fishId)
     {
-        this._breedingBoxValidationService.ValidateAddFishToBreedingBox(breedingBoxModel, fishModel);
+        BreedingBoxModel breedingBox = _breedingBoxes.FirstOrDefault(b => b.Id == breedingBoxId)
+            ?? throw new BreedingBoxNotFoundException(breedingBoxId);
 
-        breedingBoxModel.FishId = fishModel.Id;
-        breedingBoxModel.Status = BreedingBoxStatusEnum.Occupied;
-        breedingBoxModel.StartDate = DateTime.UtcNow;
+        FishModel fish = _fishService.GetFishModelById(fishId);
 
-        return breedingBoxModel;
+        this._breedingBoxValidationService.ValidateAddFishToBreedingBox(breedingBox, fish);
+
+        breedingBox.FishId = fish.Id;
+        breedingBox.Status = BreedingBoxStatusEnum.Occupied;
+        breedingBox.StartDate = DateTime.UtcNow;
+
+        return breedingBox;
     }
 
-    public BreedingBoxModel RemoveFishFromBreedingBox(BreedingBoxModel breedingBoxModel)
+    public BreedingBoxModel RemoveFishFromBreedingBox(Guid breedingBoxId)
     {
-        this._breedingBoxValidationService.ValidateRemoveFishFromBreedingBox(breedingBoxModel);
+        BreedingBoxModel breedingBox = _breedingBoxes.FirstOrDefault(b => b.Id == breedingBoxId)
+              ?? throw new BreedingBoxNotFoundException(breedingBoxId);
 
-        breedingBoxModel.FishId = null;
-        breedingBoxModel.Status = BreedingBoxStatusEnum.Free;
-        breedingBoxModel.EndDate = DateTime.UtcNow;
-       
-        return breedingBoxModel;
+        this._breedingBoxValidationService.ValidateRemoveFishFromBreedingBox(breedingBox);
+
+        breedingBox.FishId = null;
+        breedingBox.Status = BreedingBoxStatusEnum.Free;
+        breedingBox.EndDate = DateTime.UtcNow;
+
+        return breedingBox;
     }
 }
