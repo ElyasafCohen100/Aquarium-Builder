@@ -1,4 +1,4 @@
-﻿    using AquariumBuilder.Backend.Enums.BreedingBox;
+using AquariumBuilder.Backend.Enums.BreedingBox;
 
 namespace AquariumBuilder.Backend.Models.BreedingBox
 {
