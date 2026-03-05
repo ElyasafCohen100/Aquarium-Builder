@@ -1,15 +1,11 @@
 import "./App.css";
-import Header from "./components/Header/Header";
+import MainLayout from "./layout/MainLayout";
+import HomePage from "./pages/HomePage";
 
 export default function App() {
   return (
-    <>
-      <Header />
-
-      <main>
-        <h2>Welcome to Aquarium Builder 🐠</h2>
-        <p>Here we will build and manage our aquarium step by step</p>
-      </main>
-    </>
+    <MainLayout>
+      <HomePage />
+    </MainLayout>
   );
 }
