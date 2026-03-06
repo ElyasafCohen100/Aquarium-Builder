@@ -1,17 +1,16 @@
 import React from "react";
-import Header from "../components/Header/Header";
+import HeaderComponent from "../components/Header/HeaderComponent";
 
-interface MainLayoutProps {
+
+type MainLayoutProps = {
     children: React.ReactNode;
-}
+};
 
-const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+export default function MainLayout({ children }: MainLayoutProps) {
     return (
         <>
-            <Header />
+            <HeaderComponent />
             <main>{children}</main>
         </>
     );
-};
-
-export default MainLayout;
+}
